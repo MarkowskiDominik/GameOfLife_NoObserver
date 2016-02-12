@@ -134,9 +134,61 @@ public class GameOfLifeTest {
 		assertTrue(gameOfLife.getLivingCells().containsAll(expectedCells)
 				&& expectedCells.containsAll(gameOfLife.getLivingCells()));
 	}
+	
+	@Test
+	public void threeCellsBlinkerStruct_NoChangeInTwoRound() {
+		// O O O O O		O O O O O
+		// O O O O O		O O X O O
+		// O X X X O   =>	O O X O O
+		// O O O O O		O O X O O
+		// O O O O O		O O O O O
+		// given
+		livingCells.add(new Cell(1, 2));
+		livingCells.add(new Cell(2, 2));
+		livingCells.add(new Cell(3, 2));
+		
+		// when
+		gameOfLife = new GameOfLife(livingCells);
+		gameOfLife.symulationOfCellsLife();
+		gameOfLife.symulationOfCellsLife();
+		
+		// then
+		assertEquals(livingCells.size(), gameOfLife.getLivingCells().size());
+		assertTrue(gameOfLife.getLivingCells().containsAll(livingCells)
+				&& livingCells.containsAll(gameOfLife.getLivingCells()));
+	}
 
 	@Test
-	public void oneCell_OneCellDeadInTheNextRound() {
+	public void threeCellsBlinkerStruct_ChangeFromHorizontalToVerticalOrientationInThreeRound() {
+		// O O O O O		O O O O O
+		// O O O O O		O O X O O
+		// O X X X O   =>	O O X O O
+		// O O O O O		O O X O O
+		// O O O O O		O O O O O
+		// given
+		livingCells.add(new Cell(1, 2));
+		livingCells.add(new Cell(2, 2));
+		livingCells.add(new Cell(3, 2));
+		
+		LinkedList<Cell> expectedCells = new LinkedList<Cell>();
+		expectedCells.add(new Cell(2, 1));
+		expectedCells.add(new Cell(2, 2));
+		expectedCells.add(new Cell(2, 3));
+		
+		// when
+		gameOfLife = new GameOfLife(livingCells);
+		gameOfLife.symulationOfCellsLife();
+		gameOfLife.symulationOfCellsLife();
+		gameOfLife.symulationOfCellsLife();
+		
+		// then
+		assertEquals(expectedCells.size(), gameOfLife.getLivingCells().size());
+		assertTrue(gameOfLife.getLivingCells().containsAll(expectedCells)
+				&& expectedCells.containsAll(gameOfLife.getLivingCells()));
+	}
+	
+	@Test
+	public void oneCell_OneCellDeadFourRevivalInTheNextRound() {
 		// O O O O O		O O O O O
 		// O O X O O		O X X X O
 		// O X X X O   =>	O X O X O
