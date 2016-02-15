@@ -14,12 +14,12 @@ public class GameOfLifeTest {
 	private LinkedList<Cell> livingCells;
 
 	@Before
-	public void initializeBowlingGameResultCalculator() {
+	public void initializeGameOfLife() {
 		livingCells = new LinkedList<Cell>();
 	}
 
 	@After
-	public void finalizeBowlingGameResultCalculator() {
+	public void finalizeGameOfLife() {
 		gameOfLife = null;
 		livingCells = null;
 	}
